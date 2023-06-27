@@ -42,6 +42,13 @@ l3_edge:
       interfaces: [Ethernet4, Ethernet4]
       profile: DCI_profile
 
+# Local users
+local_users:
+  - name: admin
+    privilege: 15
+    role: network-admin
+    sha512_password: $6$98.Ur9uFQfRcP2kv$XPWif8J2hRH36Q29peAJzBXoNryt2.oxq2aX94kAu8LlwV0ctzTlX38Y38xhkBGESK6uJSxVQ0HYoIrz4p3XA.
+
 # bgp peer groups passwords
 bgp_peer_groups:
   ipv4_underlay_peers:

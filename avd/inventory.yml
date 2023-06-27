@@ -20,12 +20,12 @@ all:
                 DC1_LEAF1_2:
                   hosts:
                     dc1-leaf1:
-                      ansible_host: 172.20.20.111
+                      ansible_host: 172.20.20.21
                     dc1-leaf2:
-                      ansible_host: 172.20.20.112
+                      ansible_host: 172.20.20.22
               hosts:
                 dc1-leaf3:
-                  ansible_host: 172.20.20.113
+                  ansible_host: 172.20.20.23
         DC2:
           children:
             DC2_SPINES:
