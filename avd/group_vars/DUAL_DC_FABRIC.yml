@@ -1,0 +1,77 @@
+---
+# L3LS Fabric Values - update these values with caution,
+# SOME CHANGES COULD BE DISRUPTIVE.
+
+fabric_name: DUAL_DC_FABRIC
+
+# Enable vlan aware bundles
+evpn_vlan_aware_bundles: true
+
+# Select rfc5549 or ospf, not both
+
+# underlay_rfc5549: true
+# overlay_mlag_rfc5549: true
+# underlay_ipv6: true
+
+# underlay_routing_protocol: OSPF
+
+# Optional, enable multicast features
+# underlay_multicast: true
+# evpn_multicast: true
+
+# L3 Edge port definitions. This can be any port in the entire Fabric, where IP interfaces are defined.
+l3_edge:
+  # Define a new IP pool that will be used to assign IP addresses to L3 Edge interfaces.
+  p2p_links_ip_pools:
+    - name: DCI_IP_pool
+      ipv4_pool: 172.100.100.0/24
+  # Define a new link profile which will match the IP pool, the used ASNs and include the defined interface into underlay routing
+  p2p_links_profiles:
+    - name: DCI_profile
+      ip_pool: DCI_IP_pool
+      as: [65103, 65203]
+      include_in_underlay_protocol: true
+  # Define each P2P L3 link and link the nodes, the interfaces and the profile used.
+  p2p_links:
+    - id: 1
+      nodes: [dc1-leaf3, dc2-leaf3]
+      interfaces: [Ethernet3, Ethernet3]
+      profile: DCI_profile
+    - id: 2
+      nodes: [dc1-leaf3, dc2-leaf3]
+      interfaces: [Ethernet4, Ethernet4]
+      profile: DCI_profile
+
+# bgp peer groups passwords
+bgp_peer_groups:
+  ipv4_underlay_peers:
+    password: "AQQvKeimxJu+uGQ/yYvv9w=="
+  evpn_overlay_peers:
+    password: "q+VNViP5i4rVjW1cxFv2wA=="
+  mlag_ipv4_underlay_peer:
+    password: "vnEaG8gMeQf3d3cN6PktXQ=="
+
+bgp_graceful_restart:
+  enabled: true
+  restart_time: 300
+
+bgp_distance:
+  external_routes: 20
+  internal_routes: 200
+  local_routes: 200
+
+# OOB Management network default gateway
+mgmt_gateway: 172.20.20.1
+# If lab is running cEOS, management interface is Management0
+# If lab is running vEOS, management interface is Management1
+mgmt_interface: Management1
+mgmt_interface_vrf: default
+
+# Update p2p_uplinks_mtu 9214 -> 1500, MTU 9214 is not supported in vEOS-LAB on some hypervisors.
+p2p_uplinks_mtu: 1500
+
+# Adjust default bfd values, to avoid high CPU.
+bfd_multihop:
+  interval: 1200
+  min_rx: 1200
+  multiplier: 3

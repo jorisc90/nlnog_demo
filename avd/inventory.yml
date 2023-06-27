@@ -1,0 +1,75 @@
+---
+all:
+  children:
+    DUAL_DC_FABRIC:
+      children:
+        DC1:
+          children:
+            DC1_SPINES:
+              vars:
+                type: spine
+              hosts:
+                dc1-spine1:
+                  ansible_host: 172.20.20.11
+                dc1-spine2:
+                  ansible_host: 172.20.20.12
+            DC1_LEAFS:
+              vars:
+                type: l3leaf
+              children:
+                DC1_LEAF1_2:
+                  hosts:
+                    dc1-leaf1:
+                      ansible_host: 172.20.20.111
+                    dc1-leaf2:
+                      ansible_host: 172.20.20.112
+              hosts:
+                dc1-leaf3:
+                  ansible_host: 172.20.20.113
+        DC2:
+          children:
+            DC2_SPINES:
+              vars:
+                type: spine
+              hosts:
+                dc2-spine1:
+                  ansible_host: 172.20.20.111
+                dc2-spine2:
+                  ansible_host: 172.20.20.112
+            DC2_LEAFS:
+              vars:
+                type: l3leaf
+              children:
+                DC2_LEAF1_2:
+                  hosts:
+                    dc2-leaf1:
+                      ansible_host: 172.20.20.121
+                    dc2-leaf2:
+                      ansible_host: 172.20.20.122
+              hosts:
+                dc2-leaf3:
+                  ansible_host: 172.20.20.123
+        NETWORK_SERVICES:
+          children:
+            DC1_LEAFS:
+            DC2_LEAFS:
+        CONNECTED_ENDPOINTS:
+          children:
+            DC1_LEAFS:
+            DC2_LEAFS:
+
+  vars:
+    ansible_user: admin
+    ansible_password: admin
+    ansible_network_os: arista.eos.eos
+    # Configure privilege escalation
+    ansible_become: true
+    ansible_become_method: enable
+    # HTTPAPI configuration
+    ansible_connection: httpapi
+    ansible_httpapi_port: 443
+    ansible_httpapi_use_ssl: true
+    ansible_httpapi_validate_certs: false
+    ansible_python_interpreter: $(which python3)
+    avd_data_conversion_mode: error
+    avd_data_validation_mode: error
