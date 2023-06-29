@@ -19,6 +19,7 @@ evpn_vlan_aware_bundles: true
 # underlay_multicast: true
 # evpn_multicast: true
 
+#
 # L3 Edge port definitions. This can be any port in the entire Fabric, where IP interfaces are defined.
 l3_edge:
   # Define a new IP pool that will be used to assign IP addresses to L3 Edge interfaces.
@@ -42,14 +43,21 @@ l3_edge:
       interfaces: [Ethernet4, Ethernet4]
       profile: DCI_profile
 
-# Local users
+# Fabric-wide configuration options
 local_users:
   - name: admin
     privilege: 15
     role: network-admin
     sha512_password: $6$98.Ur9uFQfRcP2kv$XPWif8J2hRH36Q29peAJzBXoNryt2.oxq2aX94kAu8LlwV0ctzTlX38Y38xhkBGESK6uJSxVQ0HYoIrz4p3XA.
 
-# bgp peer groups passwords
+ip_name_servers:
+  - ip_address: 8.8.8.8
+
+ntp:
+  servers:
+    - name: pool.ntp.org
+
+# BGP global options
 bgp_peer_groups:
   ipv4_underlay_peers:
     password: "AQQvKeimxJu+uGQ/yYvv9w=="
@@ -67,7 +75,7 @@ bgp_distance:
   internal_routes: 200
   local_routes: 200
 
-# OOB Management network default gateway
+# OOB Management network options
 mgmt_gateway: 172.20.20.1
 # If lab is running cEOS, management interface is Management0
 # If lab is running vEOS, management interface is Management1
@@ -82,3 +90,26 @@ bfd_multihop:
   interval: 1200
   min_rx: 1200
   multiplier: 3
+
+## Options for the eos_snapshot module
+root_dir: '{{ inventory_dir }}'
+snapshots_backup_dir_name: 'snapshots'
+snapshots_backup_dir: '{{ root_dir }}/{{ snapshots_backup_dir_name }}'
+
+# list of desired formats. Supported values are markdown, json and text.
+# text: one file per device and show command
+# markdown: one report per device
+# json: one report per fabric
+# yaml: one report per fabric
+output_format:
+ - text
+ - markdown
+ # - json
+ # - yaml
+
+commands_list:
+  - show lldp neighbors
+  - show ip interface brief
+  - show interfaces description
+  - show version
+  - show running-config

@@ -1,0 +1,33 @@
+anta_inventory:
+  hosts:
+  - host: 172.20.20.11
+    name: dc1-spine1
+    tags: ['fabric', 'dc1', 'spine']
+  - host: 172.20.20.12
+    name: dc1-spine2
+    tags: ['fabric', 'dc1', 'spine']
+  - host: 172.20.20.21
+    name: dc1-leaf1
+    tags: ['fabric', 'dc1', 'leaf']
+  - host: 172.20.20.22
+    name: dc1-leaf2
+    tags: ['fabric', 'dc1', 'leaf']
+  - host: 172.20.20.23
+    name: dc1-leaf3
+    tags: ['fabric', 'dc1', 'leaf']
+
+  - host: 172.20.20.111
+    name: dc2-spine1
+    tags: ['fabric', 'dc2', 'spine']
+  - host: 172.20.20.112
+    name: dc2-spine2
+    tags: ['fabric', 'dc2', 'spine']
+  - host: 172.20.20.121
+    name: dc2-leaf1
+    tags: ['fabric', 'dc2', 'leaf']
+  - host: 172.20.20.122
+    name: dc2-leaf2
+    tags: ['fabric', 'dc2', 'leaf']
+  - host: 172.20.20.123
+    name: dc2-leaf3
+    tags: ['fabric', 'dc2', 'leaf']

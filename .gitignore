@@ -3,3 +3,6 @@ containerlab/clab-dual-dc/*
 avd/config_backup/*
 avd/documentation/*
 avd/intended/*
+avd/reports/*
+avd/snapshots/*
+anta/.python-version

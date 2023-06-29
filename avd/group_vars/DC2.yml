@@ -1,6 +1,8 @@
 ---
 dc_name: DC2
 
+# Spine Switches
+
 spine:
   defaults:
     platform: vEOS-lab 
@@ -9,11 +11,15 @@ spine:
 
   nodes: 
     - name: dc2-spine1
-      id: 11 
+      id: 1
       mgmt_ip: 172.20.20.111/24
     - name: dc2-spine2
-      id: 12
+      id: 2
       mgmt_ip: 172.20.20.112/24
+
+# Leaf switch groups
+# A maximum of two nodes can form a leaf group
+# When two nodes are in a leaf group this will automatically form mlag pair
 
 l3leaf:
   defaults:
@@ -21,6 +27,7 @@ l3leaf:
     loopback_ipv4_pool: 10.255.128.0/27 
     loopback_ipv4_offset: 2 
     vtep_loopback_ipv4_pool: 10.255.129.0/27 
+    uplink_interfaces: ['Ethernet1', 'Ethernet2'] 
     uplink_switches: ['dc2-spine1', 'dc2-spine2'] 
     uplink_ipv4_pool: 10.255.255.64/26 
     mlag_interfaces: ['Ethernet5', 'Ethernet6'] 
@@ -38,14 +45,14 @@ l3leaf:
           id: 1
           mgmt_ip: 172.20.20.121/24
           uplink_switch_interfaces: 
-            - Ethernet1 
-            - Ethernet1
+            - Ethernet1/1
+            - Ethernet1/1
         - name: dc2-leaf2
           id: 2
           mgmt_ip: 172.20.20.122/24
           uplink_switch_interfaces: 
-            - Ethernet2
-            - Ethernet2
+            - Ethernet2/1
+            - Ethernet2/1
 
   nodes:
     - name: dc2-leaf3
@@ -61,5 +68,5 @@ l3leaf:
           - hostname: dc1-leaf3
       mgmt_ip: 172.20.20.123/24
       uplink_switch_interfaces: 
-        - Ethernet3
-        - Ethernet3
+        - Ethernet3/1
+        - Ethernet3/1

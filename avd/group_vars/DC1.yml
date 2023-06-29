@@ -11,8 +11,8 @@ spine:
 
   nodes: 
     - name: dc1-spine1
-      id: 1 
-      mgmt_ip: 172.20.20.11/24 
+      id: 1
+      mgmt_ip: 172.20.20.11/24
     - name: dc1-spine2
       id: 2
       mgmt_ip: 172.20.20.12/24
@@ -23,7 +23,7 @@ spine:
 
 l3leaf:
   defaults:
-    platform: vEOS-lab 
+    platform: vEOS-lab
     loopback_ipv4_pool: 10.255.0.0/27 
     loopback_ipv4_offset: 2
     vtep_loopback_ipv4_pool: 10.255.1.0/27 
@@ -45,14 +45,14 @@ l3leaf:
           id: 1
           mgmt_ip: 172.20.20.21/24
           uplink_switch_interfaces: 
-            - Ethernet1 
-            - Ethernet1
+            - Ethernet1/1
+            - Ethernet1/1
         - name: dc1-leaf2
           id: 2
           mgmt_ip: 172.20.20.22/24
           uplink_switch_interfaces: 
-            - Ethernet2
-            - Ethernet2
+            - Ethernet2/1
+            - Ethernet2/1
 
   nodes:
     - name: dc1-leaf3
@@ -68,7 +68,5 @@ l3leaf:
           - hostname: dc2-leaf3
       mgmt_ip: 172.20.20.23/24
       uplink_switch_interfaces: 
-        - Ethernet3
-        - Ethernet3
-    
-
+        - Ethernet3/1
+        - Ethernet3/1
