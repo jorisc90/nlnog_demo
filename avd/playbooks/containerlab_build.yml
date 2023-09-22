@@ -1,0 +1,13 @@
+---
+# containerlab_build.yml
+
+- name: Create avd nodes specific files
+  hosts: DUAL_DC_FABRIC
+  connection: local
+  gather_facts: false
+  tasks:
+
+    - name: Create avd nodes specific files
+      ansible.bultin.import_role:
+        name: arista.avd.eos_designs_to_containerlab
+        tasks_from: create_avd_node_files

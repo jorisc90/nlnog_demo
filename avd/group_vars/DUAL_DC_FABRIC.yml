@@ -8,12 +8,12 @@ fabric_name: DUAL_DC_FABRIC
 evpn_vlan_aware_bundles: true
 
 # Select rfc5549 or ospf, not both
-
+underlay_routing_protocol: ebgp
+# underlay_ipv6: true
 # underlay_rfc5549: true
 # overlay_mlag_rfc5549: true
-# underlay_ipv6: true
 
-# underlay_routing_protocol: OSPF
+# overlay_routing_protocol: ebgp
 
 # Optional, enable multicast features
 # underlay_multicast: true
@@ -90,6 +90,10 @@ bfd_multihop:
   interval: 1200
   min_rx: 1200
   multiplier: 3
+
+#eos_cli: |
+#  router isis EVPN_UNDERLAY
+#    spf-interval 1 10 100
 
 ## Options for the eos_snapshot module
 root_dir: '{{ inventory_dir }}'

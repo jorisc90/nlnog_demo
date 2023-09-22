@@ -58,6 +58,28 @@ all:
             DC1_LEAFS:
             DC2_LEAFS:
 
+    CONTAINERLAB:
+      hosts:
+        CL_1:
+          ansible_host: 172.16.131.132
+      vars:
+        ansible_user: admin
+        ansible_password: admin
+        ansible_become_password: admin
+        ansible_connection: ssh
+        ansible_become: true
+        ansible_become_method: sudo
+        containerlab_ceos_version: ceos:latest
+        containerlab_configuration: avd.yml
+        containerlab_vxlan_base: 200
+        containerlab_labname: "avd"
+        containerlab_mgmt_network: 172.20.20.0/24
+        containerlab_custom_interface_mapping: true
+        containerlab_include_intfs_to_non_avd_nodes: false
+        containerlab_include_non_avd_nodes: false
+        containerlab_prefix: 'avd'
+        containerlab_deploy_on_hosts: true
+
   vars:
     ansible_user: admin
     ansible_password: admin
