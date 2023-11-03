@@ -6,20 +6,6 @@
 
     // Set *default* container specific settings.json values on container create.
     "settings": {
-        "python.testing.pytestPath": "/root/.local/bin/pytest",
-        "python.pythonPath": "/usr/local/bin/python",
-        "python.languageServer": "Pylance",
-        "python.linting.enabled": true,
-        "python.linting.pylintEnabled": true,
-        "python.formatting.autopep8Path": "/usr/local/py-utils/bin/autopep8",
-        "python.formatting.blackPath": "/usr/local/py-utils/bin/black",
-        "python.formatting.yapfPath": "/usr/local/py-utils/bin/yapf",
-        "python.linting.banditPath": "/usr/local/py-utils/bin/bandit",
-        "python.linting.flake8Path": "/usr/local/py-utils/bin/flake8",
-        "python.linting.mypyPath": "/usr/local/py-utils/bin/mypy",
-        "python.linting.pycodestylePath": "/usr/local/py-utils/bin/pycodestyle",
-        "python.linting.pydocstylePath": "/usr/local/py-utils/bin/pydocstyle",
-        "python.linting.pylintPath": "/usr/local/py-utils/bin/pylint"
     },
 
     // Add the IDs of extensions you want installed when the container is created.
@@ -28,6 +14,7 @@
         "aristapublisher.eos",
         "ms-python.vscode-pylance",
         "ms-python.python",
+        "ms-python.flake8",
         "redhat.vscode-yaml",
    ],
    "containerEnv": {
