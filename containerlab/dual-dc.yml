@@ -3,7 +3,7 @@ name: dual-dc
 topology:
   kinds:
     ceos:
-      image: arista/ceos:4.30.1F
+      image: ceos-lab:latest
     linux:
       image: ghcr.io/hellt/network-multitool
 

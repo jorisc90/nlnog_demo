@@ -95,8 +95,9 @@ bfd_multihop:
 #  router isis EVPN_UNDERLAY
 #    spf-interval 1 10 100
 
-## Options for the eos_snapshot module
+## Options for the eos_snapshot and eos_validate_state module
 root_dir: '{{ inventory_dir }}'
+
 snapshots_backup_dir_name: 'snapshots'
 snapshots_backup_dir: '{{ root_dir }}/{{ snapshots_backup_dir_name }}'
 
@@ -106,10 +107,10 @@ snapshots_backup_dir: '{{ root_dir }}/{{ snapshots_backup_dir_name }}'
 # json: one report per fabric
 # yaml: one report per fabric
 output_format:
- - text
- - markdown
- # - json
- # - yaml
+  - text
+  - markdown
+  # - json
+  # - yaml
 
 commands_list:
   - show lldp neighbors
@@ -117,3 +118,63 @@ commands_list:
   - show interfaces description
   - show version
   - show running-config
+
+# AVD configurations output
+# Main output directory
+output_dir_name: "intended"
+output_dir: "{{ root_dir }}/{{ output_dir_name }}"
+
+# Output for test catalog YAML files if save_catalog is set to true
+test_catalogs_dir_name: "test_catalogs"
+test_catalogs_dir: "{{ output_dir }}/{{ test_catalogs_dir_name }}"
+
+# Output directory for eos_validate_state reports
+eos_validate_state_name: "reports"
+eos_validate_state_dir: "{{ root_dir }}/{{ eos_validate_state_name }}"
+
+# Output for test results JSON files if save_results is set to true
+test_results_dir_name: "test_results"
+test_results_dir: "{{ eos_validate_state_dir }}/{{ test_results_dir_name }}"
+
+# Fabric name used in the reports name
+fabric_name: "all"
+
+# Reports name
+eos_validate_state_md_report_path: "{{ eos_validate_state_dir }}/{{ fabric_name }}-state.md"
+eos_validate_state_csv_report_path: "{{ eos_validate_state_dir }}/{{ fabric_name }}-state.csv"
+
+# Allow different manufacturers
+accepted_xcvr_manufacturers: "{{ validation_role.xcvr_own_manufacturers | arista.avd.default(['Arastra, Inc.', 'Arista Networks']) }}"
+
+# Allow different states for power supplies
+accepted_pwr_supply_states: "{{ validation_role.pwr_supply_states | arista.avd.default(['ok']) }}"
+
+# Allow different states for fans
+accepted_fan_states: "{{ validation_role.fan_states | arista.avd.default(['ok']) }}"
+
+# Generate CSV results file
+validation_report_csv: "{{ validation_role.validation_report_csv | arista.avd.default(true) }}"
+
+# Generate MD results file
+validation_report_md: "{{ validation_role.validation_report_md | arista.avd.default(true) }}"
+
+# Print only FAILED tests
+only_failed_tests: "{{ validation_role.only_failed_tests | arista.avd.default(false) }}"
+
+
+# Variable to enable ANTA eos_validate_state
+# Defaults to false as ANTA is currently in preview
+use_anta: true
+
+# Save each device test catalog to 'test_catalogs_dir'. Defaults to false.
+save_catalog: true
+
+# Logging level for the ANTA libraries. Defaults to "WARNING".
+logging_level: "WARNING"
+
+# The variable `skipped_tests` can be used for running/skipping test categories
+skipped_tests:
+#  - category: AvdTestBGP
+  - category: AvdTestHardware
+    tests:
+      - VerifyEnvironmentCooling
