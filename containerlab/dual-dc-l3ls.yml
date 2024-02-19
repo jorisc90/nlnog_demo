@@ -1,0 +1,159 @@
+---
+name: dual-dc-l3ls
+
+prefix: __lab-name
+
+mgmt:
+  network: MGMT
+  ipv4-subnet: 172.16.1.0/24
+  
+topology:
+  nodes:
+    dc1-leaf1a:
+      image: ceos-lab:latest
+      mgmt-ipv4: 172.16.1.101  
+      kind: ceos
+      startup-config: switch-basic-configurations/dc1-leaf1a-basic-configuration.txt
+      enforce-startup-config: true
+
+    dc1-leaf1b:
+      image: ceos-lab:latest
+      mgmt-ipv4: 172.16.1.102  
+      kind: ceos
+      startup-config: switch-basic-configurations/dc1-leaf1b-basic-configuration.txt
+      enforce-startup-config: true
+
+    dc1-leaf1c:
+      image: ceos-lab:latest
+      mgmt-ipv4: 172.16.1.151  
+      kind: ceos
+      startup-config: switch-basic-configurations/dc1-leaf1c-basic-configuration.txt
+      enforce-startup-config: true
+
+    dc1-leaf2a:
+      image: ceos-lab:latest
+      mgmt-ipv4: 172.16.1.103  
+      kind: ceos
+      startup-config: switch-basic-configurations/dc1-leaf2a-basic-configuration.txt
+      enforce-startup-config: true
+
+    dc1-leaf2b:
+      image: ceos-lab:latest
+      mgmt-ipv4: 172.16.1.104  
+      kind: ceos
+      startup-config: switch-basic-configurations/dc1-leaf2b-basic-configuration.txt
+      enforce-startup-config: true
+
+    dc1-leaf2c:
+      image: ceos-lab:latest
+      mgmt-ipv4: 172.16.1.152  
+      kind: ceos
+      startup-config: switch-basic-configurations/dc1-leaf2c-basic-configuration.txt
+      enforce-startup-config: true
+
+    dc1-spine1:
+      image: ceos-lab:latest
+      mgmt-ipv4: 172.16.1.11  
+      kind: ceos
+      startup-config: switch-basic-configurations/dc1-spine1-basic-configuration.txt
+      enforce-startup-config: true
+
+    dc1-spine2:
+      image: ceos-lab:latest
+      mgmt-ipv4: 172.16.1.12  
+      kind: ceos
+      startup-config: switch-basic-configurations/dc1-spine2-basic-configuration.txt
+      enforce-startup-config: true
+
+    dc2-leaf1a:
+      image: ceos-lab:latest
+      mgmt-ipv4: 172.16.1.111  
+      kind: ceos
+      startup-config: switch-basic-configurations/dc2-leaf1a-basic-configuration.txt
+      enforce-startup-config: true
+
+    dc2-leaf1b:
+      image: ceos-lab:latest
+      mgmt-ipv4: 172.16.1.112  
+      kind: ceos
+      startup-config: switch-basic-configurations/dc2-leaf1b-basic-configuration.txt
+      enforce-startup-config: true
+
+    dc2-leaf1c:
+      image: ceos-lab:latest
+      mgmt-ipv4: 172.16.1.161  
+      kind: ceos
+      startup-config: switch-basic-configurations/dc2-leaf1c-basic-configuration.txt
+      enforce-startup-config: true
+
+    dc2-leaf2a:
+      image: ceos-lab:latest
+      mgmt-ipv4: 172.16.1.113  
+      kind: ceos
+      startup-config: switch-basic-configurations/dc2-leaf2a-basic-configuration.txt
+      enforce-startup-config: true
+
+    dc2-leaf2b:
+      image: ceos-lab:latest
+      mgmt-ipv4: 172.16.1.114  
+      kind: ceos
+      startup-config: switch-basic-configurations/dc2-leaf2b-basic-configuration.txt
+      enforce-startup-config: true
+
+    dc2-leaf2c:
+      image: ceos-lab:latest
+      mgmt-ipv4: 172.16.1.162  
+      kind: ceos
+      startup-config: switch-basic-configurations/dc2-leaf2c-basic-configuration.txt
+      enforce-startup-config: true
+
+    dc2-spine1:
+      image: ceos-lab:latest
+      mgmt-ipv4: 172.16.1.21  
+      kind: ceos
+      startup-config: switch-basic-configurations/dc2-spine1-basic-configuration.txt
+      enforce-startup-config: true
+
+    dc2-spine2:
+      image: ceos-lab:latest
+      mgmt-ipv4: 172.16.1.22  
+      kind: ceos
+      startup-config: switch-basic-configurations/dc2-spine2-basic-configuration.txt
+      enforce-startup-config: true
+
+
+  links:
+    - endpoints: ["dc1-leaf1a:eth1", "dc1-spine1:eth1"]
+    - endpoints: ["dc1-leaf1a:eth2", "dc1-spine2:eth1"]
+    - endpoints: ["dc1-leaf1a:eth3", "dc1-leaf1b:eth3"]
+    - endpoints: ["dc1-leaf1a:eth4", "dc1-leaf1b:eth4"]
+    - endpoints: ["dc1-leaf1a:eth8", "dc1-leaf1c:eth1"]
+    - endpoints: ["dc1-leaf1b:eth1", "dc1-spine1:eth2"]
+    - endpoints: ["dc1-leaf1b:eth2", "dc1-spine2:eth2"]
+    - endpoints: ["dc1-leaf1b:eth8", "dc1-leaf1c:eth2"]
+    - endpoints: ["dc1-leaf2a:eth1", "dc1-spine1:eth3"]
+    - endpoints: ["dc1-leaf2a:eth2", "dc1-spine2:eth3"]
+    - endpoints: ["dc1-leaf2a:eth3", "dc1-leaf2b:eth3"]
+    - endpoints: ["dc1-leaf2a:eth4", "dc1-leaf2b:eth4"]
+    - endpoints: ["dc1-leaf2a:eth6", "dc2-leaf2a:eth6"]
+    - endpoints: ["dc1-leaf2a:eth8", "dc1-leaf2c:eth1"]
+    - endpoints: ["dc1-leaf2b:eth1", "dc1-spine1:eth4"]
+    - endpoints: ["dc1-leaf2b:eth2", "dc1-spine2:eth4"]
+    - endpoints: ["dc1-leaf2b:eth6", "dc2-leaf2b:eth6"]
+    - endpoints: ["dc1-leaf2b:eth8", "dc1-leaf2c:eth2"]
+    - endpoints: ["dc2-leaf1a:eth1", "dc2-spine1:eth1"]
+    - endpoints: ["dc2-leaf1a:eth2", "dc2-spine2:eth1"]
+    - endpoints: ["dc2-leaf1a:eth3", "dc2-leaf1b:eth3"]
+    - endpoints: ["dc2-leaf1a:eth4", "dc2-leaf1b:eth4"]
+    - endpoints: ["dc2-leaf1a:eth8", "dc2-leaf1c:eth1"]
+    - endpoints: ["dc2-leaf1b:eth1", "dc2-spine1:eth2"]
+    - endpoints: ["dc2-leaf1b:eth2", "dc2-spine2:eth2"]
+    - endpoints: ["dc2-leaf1b:eth8", "dc2-leaf1c:eth2"]
+    - endpoints: ["dc2-leaf2a:eth1", "dc2-spine1:eth3"]
+    - endpoints: ["dc2-leaf2a:eth2", "dc2-spine2:eth3"]
+    - endpoints: ["dc2-leaf2a:eth3", "dc2-leaf2b:eth3"]
+    - endpoints: ["dc2-leaf2a:eth4", "dc2-leaf2b:eth4"]
+    - endpoints: ["dc2-leaf2a:eth8", "dc2-leaf2c:eth1"]
+    - endpoints: ["dc2-leaf2b:eth1", "dc2-spine1:eth4"]
+    - endpoints: ["dc2-leaf2b:eth2", "dc2-spine2:eth4"]
+    - endpoints: ["dc2-leaf2b:eth8", "dc2-leaf2c:eth2"]

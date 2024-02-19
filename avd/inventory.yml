@@ -1,97 +1,74 @@
 ---
+# inventory.yml
 all:
   children:
-    DUAL_DC_FABRIC:
+    FABRIC:
       children:
         DC1:
           children:
             DC1_SPINES:
-              vars:
-                type: spine
               hosts:
                 dc1-spine1:
-                  ansible_host: 172.20.20.11
+                  ansible_host: 172.16.1.11
                 dc1-spine2:
-                  ansible_host: 172.20.20.12
-            DC1_LEAFS:
-              vars:
-                type: l3leaf
-              children:
-                DC1_LEAF1_2:
-                  hosts:
-                    dc1-leaf1:
-                      ansible_host: 172.20.20.21
-                    dc1-leaf2:
-                      ansible_host: 172.20.20.22
+                  ansible_host: 172.16.1.12
+            DC1_L3_LEAVES:
               hosts:
-                dc1-leaf3:
-                  ansible_host: 172.20.20.23
+                dc1-leaf1a:
+                  ansible_host: 172.16.1.101
+                dc1-leaf1b:
+                  ansible_host: 172.16.1.102
+                dc1-leaf2a:
+                  ansible_host: 172.16.1.103
+                dc1-leaf2b:
+                  ansible_host: 172.16.1.104
+            DC1_L2_LEAVES:
+              hosts:
+                dc1-leaf1c:
+                  ansible_host: 172.16.1.151
+                dc1-leaf2c:
+                  ansible_host: 172.16.1.152
         DC2:
           children:
             DC2_SPINES:
-              vars:
-                type: spine
               hosts:
                 dc2-spine1:
-                  ansible_host: 172.20.20.111
+                  ansible_host: 172.16.1.21
                 dc2-spine2:
-                  ansible_host: 172.20.20.112
-            DC2_LEAFS:
-              vars:
-                type: l3leaf
-              children:
-                DC2_LEAF1_2:
-                  hosts:
-                    dc2-leaf1:
-                      ansible_host: 172.20.20.121
-                    dc2-leaf2:
-                      ansible_host: 172.20.20.122
+                  ansible_host: 172.16.1.22
+            DC2_L3_LEAVES:
               hosts:
-                dc2-leaf3:
-                  ansible_host: 172.20.20.123
-        NETWORK_SERVICES:
-          children:
-            DC1_LEAFS:
-            DC2_LEAFS:
-        CONNECTED_ENDPOINTS:
-          children:
-            DC1_LEAFS:
-            DC2_LEAFS:
+                dc2-leaf1a:
+                  ansible_host: 172.16.1.111
+                dc2-leaf1b:
+                  ansible_host: 172.16.1.112
+                dc2-leaf2a:
+                  ansible_host: 172.16.1.113
+                dc2-leaf2b:
+                  ansible_host: 172.16.1.114
+            DC2_L2_LEAVES:
+              hosts:
+                dc2-leaf1c:
+                  ansible_host: 172.16.1.161
+                dc2-leaf2c:
+                  ansible_host: 172.16.1.162
 
+    NETWORK_SERVICES:
+      children:
+        DC1_L3_LEAVES:
+        DC1_L2_LEAVES:
+        DC2_L3_LEAVES:
+        DC2_L2_LEAVES:
+    CONNECTED_ENDPOINTS:
+      children:
+        DC1_L3_LEAVES:
+        DC1_L2_LEAVES:
+        DC2_L3_LEAVES:
+        DC2_L2_LEAVES:
+    
     CONTAINERLAB:
       hosts:
         CL_1:
-          ansible_host: 172.16.131.132
+          ansible_host: 1.1.1.1
       vars:
-        ansible_user: admin
-        ansible_password: admin
-        ansible_become_password: admin
-        ansible_connection: ssh
-        ansible_become: true
-        ansible_become_method: sudo
-        containerlab_ceos_version: ceos:latest
-        containerlab_configuration: avd.yml
-        containerlab_vxlan_base: 200
-        containerlab_labname: "avd"
-        containerlab_mgmt_network: 172.20.20.0/24
-        containerlab_custom_interface_mapping: true
-        containerlab_include_intfs_to_non_avd_nodes: false
-        containerlab_include_non_avd_nodes: false
-        containerlab_prefix: 'avd'
-        containerlab_deploy_on_hosts: true
-
-  vars:
-    ansible_user: admin
-    ansible_password: admin
-    ansible_network_os: arista.eos.eos
-    # Configure privilege escalation
-    ansible_become: true
-    ansible_become_method: enable
-    # HTTPAPI configuration
-    ansible_connection: httpapi
-    ansible_httpapi_port: 443
-    ansible_httpapi_use_ssl: true
-    ansible_httpapi_validate_certs: false
-    ansible_python_interpreter: $(which python3)
-    avd_data_conversion_mode: error
-    avd_data_validation_mode: error
+        containerlab_ceos_version: ceos-lab:latest

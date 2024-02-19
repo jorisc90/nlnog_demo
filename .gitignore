@@ -1,8 +1,9 @@
-containerlab/.dual-dc.yml.bak
-containerlab/clab-dual-dc/*
+containerlab/.dual-dc-l3ls.yml.bak
+containerlab/clab-dual-dc-l3ls/*
 avd/config_backup/*
 avd/documentation/*
 avd/intended/*
 avd/reports/*
 avd/snapshots/*
 anta/.python-version
+.DS_Store

@@ -2,7 +2,7 @@
 # validate.yml
 
 - name: Validate state on EOS devices
-  hosts: DUAL_DC_FABRIC
+  hosts: FABRIC
   connection: httpapi
   gather_facts: false
   tasks:
@@ -10,3 +10,8 @@
     - name: Validate state on EOS devices
       ansible.builtin.import_role:
         name: arista.avd.eos_validate_state
+      vars:
+        # To enable ANTA
+        use_anta: true
+        # To save catalogs
+        save_catalog: true

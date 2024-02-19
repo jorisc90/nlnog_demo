@@ -2,7 +2,7 @@
 # snapshot.yml
 
 - name: Create snapshot reports from EOS devices
-  hosts: DUAL_DC_FABRIC
+  hosts: FABRIC
   connection: local
   gather_facts: false
   tasks:

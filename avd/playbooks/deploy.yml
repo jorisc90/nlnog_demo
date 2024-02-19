@@ -1,8 +1,8 @@
 ---
 # deploy.yml
 
-- name: Build and Deploy Configs
-  hosts: DUAL_DC_FABRIC
+- name: Deploy Configs
+  hosts: FABRIC
   gather_facts: false
   tasks:
 

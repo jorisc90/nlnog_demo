@@ -1,10 +1,10 @@
-FROM ghcr.io/aristanetworks/ansible-avd/universal:python3.11-avd-v4.5.0
+FROM ghcr.io/aristanetworks/avd/universal:python3.11-avd-v4.6.0
 
 ARG _ARTOKEN
 ARG _AR_FILE_PATH
 
 # install anta version that matches with current avd version https://avd.sh/en/stable/roles/eos_validate_state/ANTA-Preview.html
-RUN pip3 install anta==0.10.0
+RUN pip3 install anta==0.12.0
 
 # install containerlab
 RUN bash -c "$(curl -sL https://get.containerlab.dev)"; \

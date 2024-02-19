@@ -3,7 +3,7 @@
   "build": {
       "dockerfile": "Dockerfile",
       "args": {
-          "_AR_FILE_PATH": "/support/download/EOS-USA/Active Releases/4.31/EOS-4.31.1F/cEOS-lab/cEOS-lab-4.31.1F.tar.xz",
+          "_AR_FILE_PATH": "/support/download/EOS-USA/Active Releases/4.31/EOS-4.31.2F/cEOS-lab/cEOS-lab-4.31.2F.tar.xz",
           "_ARTOKEN": "${localEnv:ARTOKEN}"
       }
   },
@@ -11,4 +11,4 @@
     "--network=host",
   ],
   "onCreateCommand": "docker import /var/tmp/ceos-lab-temp ceos-lab:latest; rm /var/tmp/ceos-lab-temp"
-}
+} 
